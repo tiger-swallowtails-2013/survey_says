@@ -1,5 +1,4 @@
-require 'rake'
-require 'sqlite3'
+require 'sinatra/activerecord/rake'
 
 desc "create the database"
 task "db:create" do
