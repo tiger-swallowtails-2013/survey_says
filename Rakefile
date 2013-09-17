@@ -1,11 +1,8 @@
 require 'sinatra/activerecord/rake'
+require_relative './db/config'
 
-desc "create the database"
-task "db:create" do
-  touch 'survey_says.sqlite3'
-end
 
 desc "drop the database"
 task "db:drop" do
-  rm_f 'survey_says.sqlite3'
+  rm_f 'db/survey_says.sqlite3'
 end
