@@ -1,5 +1,4 @@
-require_relative '../db/config.rb'
-
-class Survey< ActiveRecord::Base
+class Survey < ActiveRecord::Base
+  has_many :questions
 
 end
