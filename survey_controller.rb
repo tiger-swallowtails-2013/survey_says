@@ -12,7 +12,6 @@ get "/create_survey_form" do
 end
 
 post "/create_survey_form" do
-  p params
   survey = Survey.create(title: params[:survey_title])
   @survey_title = params[:survey_title]
   @question_number = params[:question_number]
@@ -27,19 +26,22 @@ get "/surveys/:survey_id/:survey_title/:question_number/questions/new" do
 end
 
 post "/surveys/:survey_id/questions" do
-  survey = Survey.find(params[:survey_id])
+  @survey = Survey.find(params[:survey_id])
   params[:question].each do |question|
     q = Question.create(:question => question)
-    q.survey = survey
+    q.survey = @survey
     q.save
   end
 
-  erb :success
+  redirect "/surveys/#{@survey.id}"
 end
 
-# get "/success" do
-#   erb :create_survey_questions
-# end
+get "/surveys/:survey_id" do
+  @survey = Survey.find(params[:survey_id])
+
+  erb :display_survey
+end
+
 
 get '/signup' do
   erb :signup
