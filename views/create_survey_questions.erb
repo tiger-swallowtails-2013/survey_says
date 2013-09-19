@@ -1,9 +1,10 @@
-Create Your Questions!
-<form action="/surveys/<%= @survey_id %>/questions" method="post">
-  Question 1 <input type="text" name="question1"><br/>
-  Question 2 <input type="text" name="question2"><br/>
-  Question 3 <input type="text" name="question3"><br/>
 
+<h1> <%= @survey_title %> </h1>
+<h3>Create Your Questions!</h3>
+<form action="/surveys/<%= @survey_id %>/questions" method="post"> 
+  <% @question_number.to_i.times do |question| %>
 
+Question <%= question+1 %> <input type="text" name="question1"><br/>
+  <% end %>
 <input type="submit">
 </form> 
