@@ -1,15 +1,17 @@
 helpers do
 
-  def start_session
-    session[:user_id] = @user.id
+  def start_session(user)
+    session[:user_id] = user.id
   end
 
-  def password_correct?
-    @user.password == @password
+  def login(email, password)
+    user = User.find_user_by_email_and_password(email, password)
+    start_session(user) unless user.nil?
   end
 
-  def login
-    start_session if password_correct?
+  def logged_in?
+    user = User.find_by_id(session[:user_id])
+    !user.nil?
   end
 
 end

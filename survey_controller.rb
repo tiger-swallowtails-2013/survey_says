@@ -59,16 +59,11 @@ get '/login' do
 end
 
 post '/login' do
-  @user = User.find_by_email(params[:user_id])
-  @password = params[:password]
-  login unless @user.nil?
-  redirect '/create_survey_form'
+  login(params[:email], params[:password])
+  if logged_in?
+    redirect '/create_survey_form'
+  else
+    redirect '/signup'
+  end
 end
 
-
-# survey = Survey.new
-# question = Question.new
-
-# survey.save!
-# question.survey = survey
-# question.save
