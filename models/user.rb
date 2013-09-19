@@ -1,6 +1,7 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
+
   include BCrypt
 
   def self.find_user_by_email_and_password(email, password)
