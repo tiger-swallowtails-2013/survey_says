@@ -3,6 +3,9 @@ require_relative 'db/config.rb'
 require_relative 'models/survey.rb'
 require_relative 'models/user.rb'
 require_relative 'models/question.rb'
+require_relative './session_helper.rb'
+
+enable :sessions
 
 get "/create_survey_form" do
   erb :create_survey_form
@@ -55,10 +58,16 @@ post '/signup' do
   end
 end
 
+get '/login' do
+  erb :login
+end
 
-# survey = Survey.new
-# question = Question.new
+post '/login' do
+  login(params[:email], params[:password])
+  if logged_in?
+    redirect '/create_survey_form'
+  else
+    redirect '/signup'
+  end
+end
 
-# survey.save!
-# question.survey = survey
-# question.save
