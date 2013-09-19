@@ -4,7 +4,7 @@
 <form action="/surveys/<%= @survey_id %>/questions" method="post"> 
   <% @question_number.to_i.times do |question| %>
 
-Question <%= question+1 %> <input type="text" name="question1"><br/>
+Question <%= question+1 %> <input type="text" name="question[]"><br/>
   <% end %>
 <input type="submit">
 </form> 

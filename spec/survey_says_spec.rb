@@ -16,7 +16,7 @@ describe 'User Signup' do
       :password   => "password",
       :email      => "email@example.com",
     )
-    User.last.email.should == "email@example.com"
+    expect(User.last.email).to eq("email@example.com")
   end
 
   it "Signup post with valid information creates new user" do
@@ -27,7 +27,7 @@ describe 'User Signup' do
       :email      => "post@example.com",
     }
 
-    User.last.email.should == "post@example.com"
+    expect(User.last.email).to eq("post@example.com")
   end
 
   it "User password is a hash" do
@@ -41,8 +41,6 @@ describe 'User Signup' do
   expect { BCrypt::Password.new(User.last.password) }.to_not raise_error
   BCrypt::Password.new(User.last.password).should == "passpost"
   end
-
-
 
 end
 
@@ -58,7 +56,7 @@ describe 'Survey Creation Process' do
     Survey.create(
       :title => "My Unique Survey",
     )
-    Survey.last.title.should == "My Unique Survey"
+    expect(Survey.last.title).to eq("My Unique Survey")
   end
 
   it "Creates new survey with title on create survey page" do
@@ -66,29 +64,21 @@ describe 'Survey Creation Process' do
       :survey_title => "Check out my new survey!",
     }
 
-    Survey.last.title.should == "Check out my new survey!"
+    expect(Survey.last.title).to eq("Check out my new survey!")
 
   end
 
-  it "Create questions for survey" do
-    Question.create(
-      :question => "What is your name?",
-    )
-    Question.last.question.should == "What is your name?"
+  it "creates questions for survey" do
+    Question.create(:question => "What is your name?")
+    expect(Question.last.question).to eq("What is your name?")
   end
 
-  it "Creates questions for survey on create questions page" do
-   post "/surveys/#{Survey.last.id}/questions", {
-      :question1 => "Do you have any pets?",
-      :question2 => "Do you have any pets?",
-      :question3 => "Do you have any pets?",
-    }
-    Question.last.question.should == "Do you have any pets?"  
-  end
+  it "makes sure Question is related to Survey" do
+    q = Question.create(:question => "What is your name?")
+    survey = Survey.create(:title => "New Survey")
+    q.survey = survey
 
-  it "Make sure Question is related to Survey" do
-
-    Question.last.survey_id.should == Survey.last.id
+    expect(q.survey_id).to eq(survey.id)
   end
 
   it "accepts and displays the appropriate number of questions" do
@@ -97,7 +87,8 @@ describe 'Survey Creation Process' do
         :question_number => "6"
       }
 
-      Survey.last.title == "Test Title"
+      expect(Survey.last.title).to eq("Test Title")
   end
 
 end
+
