@@ -91,4 +91,13 @@ describe 'Survey Creation Process' do
     Question.last.survey_id.should == Survey.last.id
   end
 
+  it "accepts and displays the appropriate number of questions" do
+      post "/create_survey_form" , {
+        :survey_title => "Test Title",
+        :question_number => "6"
+      }
+
+      Survey.last.title == "Test Title"
+  end
+
 end

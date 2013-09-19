@@ -10,10 +10,14 @@ end
 
 post "/create_survey_form" do
   survey = Survey.create(title: params[:survey_title])
-  redirect "/surveys/#{survey.id}/questions/new"
+  @survey_title = params[:survey_title]
+  @question_number = params[:question_number]
+  redirect "/surveys/#{survey.id}/#{@survey_title}/#{@question_number}/questions/new"
 end
 
-get "/surveys/:survey_id/questions/new" do
+get "/surveys/:survey_id/:survey_title/:question_number/questions/new" do
+  @survey_title = params[:survey_title]
+  @question_number = params[:question_number]
   @survey_id = params[:survey_id]
   erb :create_survey_questions
 end
