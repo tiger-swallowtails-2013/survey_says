@@ -12,7 +12,6 @@ get "/create_survey_form" do
 end
 
 post "/create_survey_form" do
-  p params
   survey = Survey.create(title: params[:survey_title])
   @survey_title = params[:survey_title]
   @question_number = params[:question_number]
