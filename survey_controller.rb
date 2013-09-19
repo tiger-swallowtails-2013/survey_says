@@ -3,6 +3,9 @@ require_relative 'db/config.rb'
 require_relative 'models/survey.rb'
 require_relative 'models/user.rb'
 require_relative 'models/question.rb'
+require_relative './session_helper.rb'
+
+enable :sessions
 
 get "/create_survey_form" do
   erb :create_survey_form
@@ -49,6 +52,17 @@ post '/signup' do
   else
     "Error signing up"
   end
+end
+
+get '/login' do
+  erb :login
+end
+
+post '/login' do
+  @user = User.find_by_email(params[:user_id])
+  @password = params[:password]
+  login unless @user.nil?
+  redirect '/create_survey_form'
 end
 
 
