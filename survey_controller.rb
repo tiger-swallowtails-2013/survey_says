@@ -76,8 +76,6 @@ post '/login' do
 end
 
 get "/:user_id" do
-  @surveys = []
-  @surveys << Survey.find_by_user_id(params[:user_id])
-  p @surveys
+  @surveys = Survey.find_all_by_user_id(params[:user_id])
   erb :user_page
 end
