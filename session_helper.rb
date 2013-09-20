@@ -14,4 +14,8 @@ helpers do
     !user.nil?
   end
 
+  def get_user_from_session
+    User.find(session[:user_id])
+  end
+
 end
