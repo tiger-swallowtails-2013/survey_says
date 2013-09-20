@@ -56,7 +56,7 @@ end
 post '/signup' do
   user = User.create(params)
   if user
-    "User '#{user.first_name} #{user.last_name}' successfully created!"
+    redirect "/#{user.id}"
   else
     "Error signing up"
   end
@@ -69,7 +69,10 @@ end
 post '/login' do
   login(params[:email], params[:password])
   if logged_in?
-    redirect "/create_survey_form"
+
+    #{User.find_by_email(params[:email]).id}
+        # puts "WHERE AM I?? \n \n"
+    redirect "/#{User.find_by_email(params[:email]).id}"
   else
     redirect '/signup'
   end
