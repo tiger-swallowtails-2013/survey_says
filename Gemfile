@@ -1,16 +1,16 @@
 source 'http://rubygems.org'
 
-ruby '1.9.3'
+gem 'sinatra-activerecord'
+gem 'sinatra'
+gem 'shoulda-matchers'
+gem 'bcrypt-ruby'
+gem 'rake'
 
-gem "sinatra-activerecord"
-gem "rake"
-gem "bcrypt-ruby"
-
-group :development
+group :development do
 	gem 'shotgun'
 	gem 'sqlite3'
 end
 
-group :production
+group :production do
 	gem 'pg'
 end
