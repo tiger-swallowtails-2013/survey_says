@@ -3,6 +3,7 @@ require_relative 'db/config.rb'
 require_relative 'models/survey.rb'
 require_relative 'models/user.rb'
 require_relative 'models/question.rb'
+require_relative 'models/response.rb'
 require_relative './session_helper.rb'
 
 enable :sessions
@@ -44,10 +45,18 @@ end
 
 get "/surveys/:survey_id" do
   @survey = Survey.find(params[:survey_id])
-
+  @survey_id = params[:survey_id]
   erb :display_survey
 end
 
+post "/surveys/:survey_id/responses" do
+  survey_questions = Survey.find(params[:survey_id]).questions
+  params[:response].each_with_index do |response, qid|
+    new_response = Response.create(:response_text => response)
+    new_response.question = survey_questions[qid]
+    new_response.save
+  end
+end
 
 get '/signup' do
   erb :signup
@@ -60,6 +69,7 @@ post '/signup' do
   else
     "Error signing up"
   end
+
 end
 
 get '/login' do
