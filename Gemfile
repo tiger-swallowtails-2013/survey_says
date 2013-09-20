@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby "ruby-1.9.3"
+ruby "1.9.3"
 
 gem 'sinatra', ''
 gem 'sinatra-activerecord'
