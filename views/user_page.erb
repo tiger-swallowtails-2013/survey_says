@@ -4,7 +4,8 @@
 
 <% @surveys.each do |survey| %>
   <p>
-  <!-- #enter link to survey -->
+    <a href="/surveys/all_responses/<%=survey.id%>">
     <%= survey.title %>
+    </a>
   </p>
 <% end %>
