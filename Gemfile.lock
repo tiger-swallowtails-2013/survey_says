@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     activemodel (4.0.0)
       activesupport (= 4.0.0)
@@ -23,10 +23,15 @@ GEM
     i18n (0.6.5)
     minitest (4.7.5)
     multi_json (1.8.0)
+    pg (0.16.0)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
     rake (10.1.0)
+    shotgun (0.9)
+      rack (>= 1.0)
+    shoulda-matchers (2.3.0)
+      activesupport (>= 3.0.0)
     sinatra (1.4.3)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -45,6 +50,10 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby
+  pg
   rake
+  shotgun
+  shoulda-matchers
+  sinatra
   sinatra-activerecord
   sqlite3
