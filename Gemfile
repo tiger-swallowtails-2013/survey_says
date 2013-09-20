@@ -1,7 +1,14 @@
 source 'https://rubygems.org'
 
 gem "sinatra-activerecord"
-gem "sqlite3"
 gem "rake"
 gem "bcrypt-ruby"
-gem 'pg'
+
+group :development
+	gem 'shotgun'
+	gem 'sqlite3'
+end
+
+group :production
+	gem 'pg'
+end
