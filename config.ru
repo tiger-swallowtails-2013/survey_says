@@ -1,3 +1,3 @@
-require "./survey_controller"
+require "./app/survey_controller"
 
 run Sinatra::Application
