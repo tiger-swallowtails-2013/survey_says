@@ -3,6 +3,7 @@ require_relative 'db/config.rb'
 require_relative 'models/survey.rb'
 require_relative 'models/user.rb'
 require_relative 'models/question.rb'
+require_relative 'models/response.rb'
 require_relative './session_helper.rb'
 
 enable :sessions
