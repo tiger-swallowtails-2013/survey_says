@@ -50,8 +50,13 @@ get "/surveys/:survey_id" do
 end
 
 post "/surveys/:survey_id/responses" do
+  survey_questions = Survey.find(params[:survey_id]).questions
+  params[:response].each_with_index do |response, qid|
+    new_response = Response.create(:response_text => response)
+    new_response.question = survey_questions[qid]
+    new_response.save
+  end
 end
-
 
 get '/signup' do
   erb :signup
@@ -61,7 +66,6 @@ post '/signup' do
   user = User.create(params)
   if user
     "User '#{user.first_name} #{user.last_name}' successfully created!"
-    redirect "/create_survey_form"
   else
     "Error signing up"
   end
