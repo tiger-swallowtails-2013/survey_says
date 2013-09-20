@@ -8,11 +8,17 @@ require_relative './session_helper.rb'
 enable :sessions
 
 get "/create_survey_form" do
-  erb :create_survey_form
+  if logged_in?
+    erb :create_survey_form
+  else
+    redirect '/login'
+  end
 end
 
 post "/create_survey_form" do
   survey = Survey.create(title: params[:survey_title])
+  survey.user = get_user_from_session
+  survey.save
   @survey_title = params[:survey_title]
   @question_number = params[:question_number]
   redirect "/surveys/#{survey.id}/#{@survey_title}/#{@question_number}/questions/new"
@@ -63,7 +69,7 @@ end
 post '/login' do
   login(params[:email], params[:password])
   if logged_in?
-    redirect '/create_survey_form'
+    redirect "/create_survey_form"
   else
     redirect '/signup'
   end
