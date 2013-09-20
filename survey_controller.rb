@@ -11,7 +11,7 @@ get "/create_survey_form" do
   if logged_in?
     erb :create_survey_form
   else
-    redirect '/login'
+    redirect "/login"
   end
 end
 
@@ -75,3 +75,7 @@ post '/login' do
   end
 end
 
+get "/:user_id" do
+  @surveys = Survey.find_all_by_user_id(params[:user_id])
+  erb :user_page
+end
