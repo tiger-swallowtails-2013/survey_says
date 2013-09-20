@@ -4,6 +4,10 @@ require_relative 'session_helper'
 
 enable :sessions
 
+get "/" do
+  redirect "/login"
+end
+
 get "/create_survey_form" do
   if logged_in?
     erb :create_survey_form
@@ -36,13 +40,18 @@ post "/surveys/:survey_id/questions" do
     q.save
   end
 
-  redirect "/surveys/#{@survey.id}"
+  redirect "#{params[:survey_id]}/created_new_survey"
 end
 
 get "/surveys/:survey_id" do
   @survey = Survey.find(params[:survey_id])
   @survey_id = params[:survey_id]
   erb :display_survey
+end
+
+get "/surveys/all_responses/:survey_id" do
+  @survey = Survey.find(params[:survey_id])
+  erb :show_survey
 end
 
 post "/surveys/:survey_id/responses" do
@@ -52,6 +61,7 @@ post "/surveys/:survey_id/responses" do
     new_response.question = survey_questions[qid]
     new_response.save
   end
+  erb :success
 end
 
 get '/signup' do
@@ -66,6 +76,10 @@ post '/signup' do
     "Error signing up"
   end
 
+end
+
+get '/:survey_id/created_new_survey' do
+  erb :created_new_survey
 end
 
 get '/login' do
