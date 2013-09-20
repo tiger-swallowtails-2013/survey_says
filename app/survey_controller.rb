@@ -8,7 +8,7 @@ get "/create_survey_form" do
   if logged_in?
     erb :create_survey_form
   else
-    redirect '/login'
+    redirect "/login"
   end
 end
 
@@ -41,10 +41,18 @@ end
 
 get "/surveys/:survey_id" do
   @survey = Survey.find(params[:survey_id])
-
+  @survey_id = params[:survey_id]
   erb :display_survey
 end
 
+post "/surveys/:survey_id/responses" do
+  survey_questions = Survey.find(params[:survey_id]).questions
+  params[:response].each_with_index do |response, qid|
+    new_response = Response.create(:response_text => response)
+    new_response.question = survey_questions[qid]
+    new_response.save
+  end
+end
 
 get '/signup' do
   erb :signup
@@ -53,10 +61,11 @@ end
 post '/signup' do
   user = User.create(params)
   if user
-    "User '#{user.first_name} #{user.last_name}' successfully created!"
+    redirect "/#{user.id}"
   else
     "Error signing up"
   end
+
 end
 
 get '/login' do
@@ -66,9 +75,16 @@ end
 post '/login' do
   login(params[:email], params[:password])
   if logged_in?
-    redirect "/create_survey_form"
+
+    #{User.find_by_email(params[:email]).id}
+        # puts "WHERE AM I?? \n \n"
+    redirect "/#{User.find_by_email(params[:email]).id}"
   else
     redirect '/signup'
   end
 end
 
+get "/:user_id" do
+  @surveys = Survey.find_all_by_user_id(params[:user_id])
+  erb :user_page
+end
