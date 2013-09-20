@@ -44,8 +44,11 @@ end
 
 get "/surveys/:survey_id" do
   @survey = Survey.find(params[:survey_id])
-
+  @survey_id = params[:survey_id]
   erb :display_survey
+end
+
+post "/surveys/:survey_id/responses" do
 end
 
 
@@ -57,9 +60,11 @@ post '/signup' do
   user = User.create(params)
   if user
     "User '#{user.first_name} #{user.last_name}' successfully created!"
+    redirect "/create_survey_form"
   else
     "Error signing up"
   end
+
 end
 
 get '/login' do
