@@ -1,6 +1,4 @@
-require 'active_record'
-require 'rack/test'
-require_relative '../survey_controller'
+require 'spec_helper'
 
 describe 'User Signup' do
   include Rack::Test::Methods
