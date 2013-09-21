@@ -17,5 +17,7 @@ helpers do
   def get_user_from_session
     User.find(session[:user_id])
   end
-
+  def logout
+    session = {}
+  end
 end
